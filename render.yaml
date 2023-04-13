@@ -1,0 +1,12 @@
+services:
+  - type: worker
+    name: webdis
+    repo: 
+    region: oregon
+    plan: starter
+    env: python
+    branch: master
+    buildCommand: pip3 install -U -r requirements.txt
+    startCommand: bash start.sh
+- key: PORT
+      value: 80
