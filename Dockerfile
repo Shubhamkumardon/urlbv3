@@ -1,14 +1,20 @@
-FROM debian:latest
+FROM ubuntu:latest
 
-RUN apt update && apt upgrade -y
-RUN apt install git curl python3-pip ffmpeg -y
-RUN pip3 install -U pip
-RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
-    apt-get install -y nodejs && \
-    npm i -g npm
-COPY requirements.txt /requirements.txt
-RUN cd /
-RUN pip3 install -U -r requirements.txt
-COPY ..
-COPY start.sh /start.sh
-CMD ["python3", "bot.py"]
+WORKDIR /usr/src/app
+RUN chmod 777 /usr/src/mergebot
+
+RUN apt-get -y update && apt-get -y upgrade && apt-get install apt-utils -y && \
+    apt-get install -y python3 python3-pip git \
+    p7zip-full p7zip-rar xz-utils wget curl pv jq \
+    ffmpeg unzip neofetch mediainfo
+
+# RUN curl https://rclone.org/install.sh | bash
+
+COPY requirements.txt .
+RUN pip3 install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+RUN chmod +x start.sh
+
+CMD ["bash","start.sh"]
