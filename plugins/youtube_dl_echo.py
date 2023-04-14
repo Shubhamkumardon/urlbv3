@@ -102,7 +102,6 @@ async def echo(bot, update):
     if Config.HTTP_PROXY != "":
         command_to_exec = [
             "yt-dlp",
-            "-f",
             "bestaudio",
             "--no-warnings",
             "--youtube-skip-dash-manifest",
@@ -113,7 +112,6 @@ async def echo(bot, update):
     else:
         command_to_exec = [
             "yt-dlp",
-            "-f",
             "bestaudio",
             "--no-warnings",
             "--youtube-skip-dash-manifest",
